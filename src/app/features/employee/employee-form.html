@@ -1,0 +1,70 @@
+<div class="container mt-4">
+  <div class="card shadow-sm">
+    <div class="card-header">
+      <h4 class="mb-0">Register Employee</h4>
+    </div>
+
+    <div class="card-body">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+        <!-- Name -->
+        <div class="mb-3">
+          <label class="form-label">Name</label>
+          <input type="text" class="form-control" formControlName="name">
+
+          @if (form.controls.name.touched && form.controls.name.invalid) {
+            <small class="text-danger">Name is required.</small>
+          }
+        </div>
+
+        <!-- Sex -->
+        <div class="mb-3">
+          <label class="form-label">Sex</label>
+          <select class="form-select" formControlName="sex">
+            <option value="">Select sex</option>
+            @for (sex of sexes; track sex) {
+              <option [value]="sex">{{ sex }}</option>
+            }
+          </select>
+
+          @if (form.controls.sex.touched && form.controls.sex.invalid) {
+            <small class="text-danger">Sex is required.</small>
+          }
+        </div>
+
+        <!-- Salary -->
+        <div class="mb-3">
+          <label class="form-label">Salary</label>
+          <input type="number" class="form-control" formControlName="salary">
+
+          @if (form.controls.salary.touched && form.controls.salary.invalid) {
+            <small class="text-danger">
+              @if (form.controls.salary.errors?.['required']) { Salary is required. }
+              @if (form.controls.salary.errors?.['min']) { Salary must be positive. }
+            </small>
+          }
+        </div>
+
+        <!-- Department -->
+        <div class="mb-3">
+          <label class="form-label">Department</label>
+          <select class="form-select" formControlName="department">
+            <option value="">Select department</option>
+            @for (dept of departments; track dept) {
+              <option [value]="dept">{{ dept }}</option>
+            }
+          </select>
+
+          @if (form.controls.department.touched && form.controls.department.invalid) {
+            <small class="text-danger">Department is required.</small>
+          }
+        </div>
+
+        <button class="btn btn-success" type="submit" [disabled]="form.invalid">
+          Save Employee
+        </button>
+
+      </form>
+    </div>
+  </div>
+</div>
