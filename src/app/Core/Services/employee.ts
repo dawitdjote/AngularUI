@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '@env/environment';
 
 export interface Employee {
   id?: number;
@@ -13,7 +14,7 @@ export interface Employee {
 @Injectable({ providedIn: 'root' })
 export class EmployeeService {
 
-  private apiUrl = 'http://localhost:5154/api/Employees';
+  private apiUrl = environment.apiUrl + '/api/Employees';
 
   constructor(private http: HttpClient) {}
 
@@ -22,6 +23,7 @@ export class EmployeeService {
   }
 
   getAll(): Observable<Employee[]> {
+    console.log('Fetching all employees from API:', this.apiUrl); 
     return this.http.get<Employee[]>(this.apiUrl);
   }
 }

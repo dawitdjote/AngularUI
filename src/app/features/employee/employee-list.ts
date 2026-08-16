@@ -1,26 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { Employee, EmployeeService } from '../../Core/Services/employee';
+import { CommonModule, NgFor, AsyncPipe } from '@angular/common';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-employee-list',
   standalone: true,
-  templateUrl: './employee-list.html'
+  templateUrl: './employee-list.html',
+  imports: [CommonModule, NgFor, AsyncPipe],
 })
 export class EmployeeList implements OnInit {
 
-  employees: Employee[] = [];
+   employees$!: Observable<Employee[]>;
+  test: Employee[] = [];
 
   constructor(private employeeService: EmployeeService) {}
 
-  ngOnInit() {
-    this.employeeService.getAll().subscribe({
-      next: (data) => {
-        this.employees = data;
-        console.log('Employees loaded successfully', this.employees);
-      },
-      error: (err) => {
-        console.error('Error loading employees', err);
-      }
-    });
-  }
+ ngOnInit() {
+  this.employees$ = this.employeeService.getAll();
+}
 }
