@@ -14,7 +14,7 @@ export interface Employee {
 @Injectable({ providedIn: 'root' })
 export class EmployeeService {
 
-  private apiUrl = environment.apiUrl + '/api/Employees';
+  private apiUrl = environment.apiUrl + '/employees';
 
   constructor(private http: HttpClient) {}
 
